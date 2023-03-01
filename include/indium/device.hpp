@@ -53,5 +53,5 @@ namespace Indium {
 		virtual void wakeupEventLoop() = 0;
 	};
 
-	std::shared_ptr<Device> createSystemDefaultDevice();
+	INDIUM_API std::shared_ptr<Device> createSystemDefaultDevice();
 };

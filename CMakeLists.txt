@@ -175,6 +175,12 @@ if (DARLING)
 	)
 endif()
 
+if (WIN32)
+	target_compile_definitions(indium PRIVATE "INDIUM_API=__declspec(dllexport)")
+	target_compile_definitions(iridium PRIVATE "IRIDIUM_API=__declspec(dllexport)")
+	target_link_libraries(iridium PRIVATE LLVMCore LLVMBinaryFormat LLVMSupport LLVMRemarks LLVMBitReader LLVMBitstreamReader)
+endif()
+
 if (NOT DARLING)
 	target_link_libraries(mtl2spv PRIVATE
 		iridium

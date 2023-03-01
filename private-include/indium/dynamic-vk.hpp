@@ -1,6 +1,8 @@
 #pragma once
-
+#ifdef _WIN32
+#else
 #include <dlfcn.h>
+#endif
 #include <vulkan/vulkan.h>
 
 #include <indium/instance.private.hpp>
@@ -10,7 +12,7 @@
 namespace Indium {
 	namespace DynamicVK {
 		extern void* libraryHandle;
-		extern PFN_vkGetInstanceProcAddr vkGetInstanceProcAddr;
+		extern INDIUM_API PFN_vkGetInstanceProcAddr vkGetInstanceProcAddr;
 		extern PFN_vkCreateInstance vkCreateInstance;
 		extern PFN_vkEnumerateInstanceLayerProperties vkEnumerateInstanceLayerProperties;
 
@@ -163,7 +165,7 @@ namespace Indium {
 			_macro(vkWaitSemaphores)
 
 		#define INDIUM_DYNAMICVK_FUNCTION_DECL(_name) \
-			extern DynamicFunction<PFN_ ## _name> _name;
+			extern INDIUM_API DynamicFunction<PFN_ ## _name> _name;
 
 		INDIUM_DYNAMICVK_FUNCTION_FOREACH(INDIUM_DYNAMICVK_FUNCTION_DECL)
 	};

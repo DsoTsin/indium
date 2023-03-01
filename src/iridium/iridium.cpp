@@ -7,15 +7,23 @@
 
 #include <cstdlib>
 
-bool Iridium::init() {
+IRIDIUM_API bool Iridium::init() {
+#ifndef _WIN32
 	return Iridium::DynamicLLVM::init();
+#else
+	return true;
+#endif
 };
 
-void Iridium::finit() {
+IRIDIUM_API void Iridium::finit() {
+#ifndef _WIN32
 	Iridium::DynamicLLVM::finit();
+#else
+
+#endif
 };
 
-void* Iridium::translate(const void* inputData, size_t inputSize, size_t& outputSize, OutputInfo& outputInfo) {
+IRIDIUM_API void* Iridium::translate(const void* inputData, size_t inputSize, size_t& outputSize, OutputInfo& outputInfo) {
 	AIR::Library lib(inputData, inputSize);
 	SPIRV::Builder builder;
 

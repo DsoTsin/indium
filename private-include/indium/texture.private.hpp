@@ -17,7 +17,7 @@ namespace Indium {
 	 * All instances of classes derived from this class must ONLY be created as
 	 * shared pointers.
 	 */
-	class PrivateTexture: public Texture, public std::enable_shared_from_this<PrivateTexture> {
+	class INDIUM_API PrivateTexture: public Texture, public std::enable_shared_from_this<PrivateTexture> {
 	protected:
 		std::mutex _syncMutex;
 		std::shared_ptr<TimelineSemaphore> _syncSemaphore;

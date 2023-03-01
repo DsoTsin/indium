@@ -12,6 +12,10 @@
 #include <iridium/spirv.hpp>
 #include <iridium/iridium.hpp>
 
+#ifdef _WIN32
+#define DynamicLLVM  
+#endif
+
 namespace Iridium {
 	namespace SPIRV {
 		class Builder;

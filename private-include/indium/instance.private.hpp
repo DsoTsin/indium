@@ -3,5 +3,5 @@
 #include <vulkan/vulkan.h>
 
 namespace Indium {
-	extern VkInstance globalInstance;
+	extern INDIUM_API VkInstance globalInstance;
 };

@@ -5,8 +5,11 @@
 
 #include <llvm-c/BitReader.h>
 
+#ifndef _WIN32
 namespace DynamicLLVM = Iridium::DynamicLLVM;
-
+#else
+#define DynamicLLVM  
+#endif
 // special thanks to https://github.com/YuAo/MetalLibraryArchive for information on the library format
 
 // we use LLVM's C API because it's much more stable than the C++ API and it's good enough for our needs
@@ -42,6 +45,11 @@ Iridium::AIR::Function::Function(Type type, const std::string& name, const void*
 #include <iostream>
 
 class ImpossibleResultID: public std::exception {};
+
+enum class CFGType {
+	None = 0,
+	Selection,
+};
 
 static Iridium::SPIRV::ResultID llvmTypeToSPIRVType(Iridium::SPIRV::Builder& builder, LLVMTypeRef llvmType) {
 	using namespace Iridium::SPIRV;
@@ -955,11 +963,6 @@ void Iridium::AIR::Function::analyze(SPIRV::Builder& builder, OutputInfo& output
 	//
 
 	// TODO: handle more complex CFG structures
-
-	enum class CFGType {
-		None = 0,
-		Selection,
-	};
 
 	struct CFGInfo {
 		CFGType type = CFGType::None;

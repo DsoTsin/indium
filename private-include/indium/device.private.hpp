@@ -19,7 +19,7 @@ namespace Indium {
 	void initGlobalDeviceList();
 	void finitGlobalDeviceList();
 
-	class PrivateDevice: public Device, public std::enable_shared_from_this<PrivateDevice> {
+	class INDIUM_API PrivateDevice: public Device, public std::enable_shared_from_this<PrivateDevice> {
 	private:
 
 		std::mutex _eventLoopMutex;

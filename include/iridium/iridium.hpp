@@ -6,9 +6,17 @@
 #include <unordered_map>
 #include <string>
 
+#ifdef _WIN32
+#ifndef IRIDIUM_API
+#define IRIDIUM_API __declspec(dllexport)
+#endif
+#else
+#define IRIDIUM_API  
+#endif
+
 namespace Iridium {
-	bool init();
-	void finit();
+	IRIDIUM_API bool init();
+	IRIDIUM_API void finit();
 
 	enum class FunctionType {
 		Vertex = 1,
@@ -103,5 +111,5 @@ namespace Iridium {
 	/**
 	 * @returns A pointer allocated with `malloc`, or `nullptr` if translation failed.
 	 */
-	void* translate(const void* inputData, size_t inputSize, size_t& outputSize, OutputInfo& outputInfo);
+	IRIDIUM_API void* translate(const void* inputData, size_t inputSize, size_t& outputSize, OutputInfo& outputInfo);
 };

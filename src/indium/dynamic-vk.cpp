@@ -5,6 +5,13 @@
 	extern "C" struct elf_calls* _elfcalls;
 #endif
 
+#if _WIN32
+#include <Windows.h>
+
+#define dlsym(h, s) GetProcAddress((HMODULE)h, s)
+#define dlclose(h) FreeLibrary((HMODULE)h)
+#endif
+
 void* Indium::DynamicVK::libraryHandle = NULL;
 PFN_vkGetInstanceProcAddr Indium::DynamicVK::vkGetInstanceProcAddr = NULL;
 PFN_vkCreateInstance Indium::DynamicVK::vkCreateInstance = NULL;
@@ -31,7 +38,11 @@ bool Indium::DynamicVK::init() {
 	// now we can close the native handle
 	_elfcalls->dlclose(tmp);
 #else
+#ifdef _WIN32
+	libraryHandle = LoadLibraryA("bulkan-1.dll");
+#else
 	libraryHandle = dlopen("libvulkan.so.1", RTLD_LAZY);
+#endif
 #endif
 
 	if (!libraryHandle) {

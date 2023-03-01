@@ -52,7 +52,7 @@ namespace Indium {
 		};
 	};
 
-	class Texture: public Resource {
+	class INDIUM_API Texture: public Resource {
 	public:
 		virtual ~Texture() = 0;
 

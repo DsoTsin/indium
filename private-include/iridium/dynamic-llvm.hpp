@@ -2,9 +2,9 @@
 
 #include <llvm-c/BitReader.h>
 #include <llvm-c/Core.h>
-
+#ifndef _WIN32
 #include <dlfcn.h>
-
+#endif
 #include <mutex>
 
 namespace Iridium {
@@ -13,7 +13,7 @@ namespace Iridium {
 
 		bool init();
 		void finit();
-
+#ifndef _WIN32
 		template<typename FuncPtr>
 		struct DynamicFunction;
 
@@ -117,5 +117,6 @@ namespace Iridium {
 			extern DynamicFunction<decltype(_name)> _name;
 
 		IRIDIUM_DYNAMICLLVM_FUNCTION_FOREACH(IRIDIUM_DYNAMICLLVM_FUNCTION_DECL)
+#endif
 	};
 };

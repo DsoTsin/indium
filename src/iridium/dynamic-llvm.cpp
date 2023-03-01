@@ -4,15 +4,18 @@
 	#include <elfcalls.h>
 	extern "C" struct elf_calls* _elfcalls;
 #endif
-
+	
+#ifndef _WIN32
 void* Iridium::DynamicLLVM::libraryHandle = NULL;
 
 #define DYNAMICLLVM_FUNCTION_DEF(_name) \
 	Iridium::DynamicLLVM::DynamicFunction<decltype(_name)> Iridium::DynamicLLVM::_name(#_name);
 
 IRIDIUM_DYNAMICLLVM_FUNCTION_FOREACH(DYNAMICLLVM_FUNCTION_DEF)
+#endif
 
 bool Iridium::DynamicLLVM::init() {
+#ifndef _WIN32
 #ifdef DARLING
 	// like we do in Indium, we have to check if the host system has LLVM
 	// before loading our LLVM wrapper library since our wrapper will die
@@ -33,11 +36,16 @@ bool Iridium::DynamicLLVM::init() {
 #endif
 
 	return !!libraryHandle;
+#else
+	return true;
+#endif
 };
 
 void Iridium::DynamicLLVM::finit() {
+#ifndef _WIN32
 	if (libraryHandle) {
 		dlclose(libraryHandle);
 		libraryHandle = NULL;
 	}
+#endif
 };

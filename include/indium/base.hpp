@@ -2,6 +2,14 @@
 
 #include <utility>
 
+#ifdef _MSC_VER
+#ifndef INDIUM_API
+#define INDIUM_API __declspec(dllimport)
+#endif
+#else
+#define INDIUM_API  
+#endif
+
 #define INDIUM_PROPERTY_READONLY(_type, _lower, _upper, _restOfName) \
 	public: \
 		_type _lower ## _restOfName() { return _ ## _lower ## _restOfName; } \

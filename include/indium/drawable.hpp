@@ -5,7 +5,7 @@
 namespace Indium {
 	class Texture;
 
-	class Drawable {
+	class INDIUM_API Drawable {
 	public:
 		virtual ~Drawable() = 0;
 

@@ -380,7 +380,11 @@ namespace Iridium {
 #ifdef __clang__
 	using Float16 = __fp16;
 #else
+#ifdef _WIN32
+	using Float16 = uint16_t;
+#else
 	using Float16 = _Float16;
+#endif
 #endif
 };
 
